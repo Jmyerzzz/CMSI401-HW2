@@ -23,7 +23,7 @@ class MazeClause:
             if prop[0] in self.props and self.props[prop[0]] != prop[1]:
                 self.props, self.valid = {}, True
                 break;
-            self.props[0] = prop[1]
+            self.props[prop[0]] = prop[1]
 
     def get_prop(self, prop):
         """
