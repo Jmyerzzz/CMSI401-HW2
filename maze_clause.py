@@ -11,54 +11,24 @@ import unittest
 class MazeClause:
 
     def __init__(self, props):
-        """
-        Constructor parameterized by the propositions within this clause;
-        argument props is a list of MazeClauses:
-        [("P", (1, 1)), ("B", (1, 2)), ...]
-        """
         self.props = {}
         self.valid = False
         for prop in props:
             if prop[0] in self.props and self.props[prop[0]] != prop[1]:
                 self.props, self.valid = {}, True
                 break
-            self.props[0] = prop[1]
+            self.props[prop[0]] = prop[1]
 
     def get_prop(self, prop):
-        """
-        Returns:
-          - None if the requested prop is not in the clause
-          - True if the requested prop is positive in the clause
-          - False if the requested prop is negated in the clause
-        """
         if prop in self.props:
             return self.props[prop]
         return None
 
     def is_valid(self):
-        """
-        Returns:
-          - True if this clause is logically equivalent with True
-          - False otherwise
-        """
-        self.props = {}
-        self.valid = False
-        # need the code to see if true props have negated truth values
-        for prop in props:
-            if self.props[0] == self.props[1] and  self.props[0]
-                return self.valid = True
-        return False
+        return self.valid
 
     def is_empty(self):
-        """
-        Returns:
-          - True if this is the Empty Clause
-          - False otherwise
-        (NB: valid clauses are not empty)
-        """
-        # TODO: This is currently implemented incorrectly; see
-        # spec for details!
-        return False
+        return not self.valid and not self.props
 
     def __eq__(self, other):
         """
@@ -103,7 +73,7 @@ class MazeClause:
             return results
 
         resolutionProps = []
-        
+
 
         return results
 
