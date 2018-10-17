@@ -86,8 +86,21 @@ class MazeClause:
         inference engine)
         """
         results = set()
-        # TODO: This is currently implemented incorrectly; see
-        # spec for details!
+
+        compProp = None
+        for prop in c1.props:
+            c2Equiv = c2.get_prop(prop)
+            if c2Equiv == None:
+                continue
+            if not c1.props[prop] == c2Equiv:
+                compProp = property
+                break
+        if not compProp:
+            return results
+
+        resolutionProps = []
+        
+
         return results
 
 
