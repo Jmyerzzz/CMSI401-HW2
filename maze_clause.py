@@ -18,12 +18,11 @@ class MazeClause:
         """
         self.props = {}
         self.valid = False
-
         for prop in props:
             if prop[0] in self.props and self.props[prop[0]] != prop[1]:
                 self.props, self.valid = {}, True
-                break;
-            self.props[prop[0]] = prop[1]
+                break
+            self.props[0] = prop[1]
 
     def get_prop(self, prop):
         """
@@ -32,7 +31,6 @@ class MazeClause:
           - True if the requested prop is positive in the clause
           - False if the requested prop is negated in the clause
         """
-
         if prop in self.props:
             return self.props[prop]
         return None
@@ -43,8 +41,13 @@ class MazeClause:
           - True if this clause is logically equivalent with True
           - False otherwise
         """
-
-        return self.valid
+        self.props = {}
+        self.valid = False
+        # need the code to see if true props have negated truth values
+        for prop in props:
+            if self.props[0] == self.props[1] and  self.props[0]
+                return self.valid = True
+        return False
 
     def is_empty(self):
         """
@@ -53,8 +56,9 @@ class MazeClause:
           - False otherwise
         (NB: valid clauses are not empty)
         """
-
-        return not self.valid and not self.props
+        # TODO: This is currently implemented incorrectly; see
+        # spec for details!
+        return False
 
     def __eq__(self, other):
         """
