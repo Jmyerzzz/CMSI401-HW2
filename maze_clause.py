@@ -45,12 +45,6 @@ class MazeClause:
         # lookup in a set
         return hash(frozenset(self.props.items()))
 
-    # Hint: Specify a __str__ method for ease of debugging (this
-    # will allow you to "print" a MazeClause directly to inspect
-    # its composite literals)
-    # def __str__ (self):
-    #     return ""
-
     @staticmethod
     def resolve(c1, c2):
         """
@@ -73,8 +67,16 @@ class MazeClause:
             return results
 
         resolutionProps = []
+        for prop, value in c1.props.items():
+            if c1.props[prop] != compProp:
+                resolutionProps.append((prop, value))
+        for prop, value in c2.props.items():
+            if c2.props[prop] != compProp:
+                resolutionProps.append((prop, value))
 
-
+        newMazeClause = MazeClause(resolutionProps)
+        if not newMazeClause.is_valid():
+            results.add(newMazeClause)
         return results
 
 
