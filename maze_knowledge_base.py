@@ -6,7 +6,9 @@ Logic Knowledge Base for use in Grid Maze pathfinding problems
 with side-information.
 '''
 from maze_clause import MazeClause
+import itertools
 import unittest
+
 
 class MazeKnowledgeBase:
 
@@ -27,10 +29,19 @@ class MazeKnowledgeBase:
         Given a MazeClause query, returns True if the KB entails
         the query, False otherwise
         """
-        # TODO: Implement resolution inference here!
-        # This is currently implemented incorrectly; see
-        # spec for details!
-        return False
+        new = set()
+        clauses = not query and set(self.clauses)
+
+        while True:
+            combinations = itertools.combinations(clauses, 2)
+            for combination in combinations:
+                resolvents = MazeClause.resolve(combination[0], combination[1])
+                if set() in resolvents:
+                    return True
+                new = new | resolvents
+            if new in clauses:
+                return False
+            clauses = clauses | new
 
 
 class MazeKnowledgeBaseTests(unittest.TestCase):

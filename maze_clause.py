@@ -61,17 +61,17 @@ class MazeClause:
             if c2Equiv == None:
                 continue
             if not c1.props[prop] == c2Equiv:
-                compProp = property
+                compProp = prop
                 break
         if not compProp:
             return results
 
         resolutionProps = []
         for prop, value in c1.props.items():
-            if c1.props[prop] != compProp:
+            if prop != compProp:
                 resolutionProps.append((prop, value))
         for prop, value in c2.props.items():
-            if c2.props[prop] != compProp:
+            if prop != compProp:
                 resolutionProps.append((prop, value))
 
         newMazeClause = MazeClause(resolutionProps)
