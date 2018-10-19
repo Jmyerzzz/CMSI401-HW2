@@ -29,17 +29,22 @@ class MazeKnowledgeBase:
         Given a MazeClause query, returns True if the KB entails
         the query, False otherwise
         """
+        negatedQuery = set()
+        for prop, value in query.props.items():
+            q = MazeClause([(prop, not value)])
+            negatedQuery.add(q)
+
         new = set()
-        clauses = not query and set(self.clauses)
+        clauses = negatedQuery | set(self.clauses)
 
         while True:
             combinations = itertools.combinations(clauses, 2)
             for combination in combinations:
                 resolvents = MazeClause.resolve(combination[0], combination[1])
-                if set() in resolvents:
+                if resolvents and list(resolvents)[0].is_empty():
                     return True
                 new = new | resolvents
-            if new in clauses:
+            if new.issubset(clauses):
                 return False
             clauses = clauses | new
 
